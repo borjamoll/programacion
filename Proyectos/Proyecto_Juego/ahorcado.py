@@ -2,14 +2,17 @@ lista_lineas=[]
 iguales="========================"
 vidas=6
 jugar=True
+palabra_ahorcado=[]
 
 #Función que divide palabras.
 def split(palabra): 
 	return [caracter for caracter in palabra]  
 
-palabra = input("Palabra a introducir? ")
-palabra=palabra.upper()
-palabra_ahorcado=split(palabra)
+def preguntar_palabra():
+	global palabra_ahorcado
+	palabra = input("Palabra a introducir? ")
+	palabra=palabra.upper()
+	palabra_ahorcado=split(palabra)
 
 #Función que comprueba la letra introducida en la palabra. (**No sé que poner en return)
 def comprobar_letra(letra):
@@ -26,20 +29,25 @@ def comprobar_letra(letra):
 	return()
 
 #(**)APPEND . Sirve para iniciar pero no cuando se desarrolla el juego. bueno con parche funcionaría, Edu está en proceso de ello.
-for i in range (len(palabra_ahorcado)):
-	lista_lineas.append("_")
-	print(lista_lineas[i],end=" ")  
+def crear_lineas():
+	global palabra_ahorcado
+	for i in range (len(palabra_ahorcado)):
+		lista_lineas.append("_")
+		print(lista_lineas[i],end=" ")  
 
 #Mientras que no se hayan encontrado tantas letra como tiene la palabra, se siguen pidiendo letras. También mientras no la palme el usuario.
-while lista_lineas!=palabra_ahorcado and jugar==True:
+def juego_ahorcado():
+	global jugar
+
+	preguntar_palabra()
+	crear_lineas()
+	while lista_lineas!=palabra_ahorcado and jugar==True:
 		print(" ")
-		print(lista_lineas)
-		print(palabra_ahorcado)
 		print(iguales)
 		letra= input("Letra a comprobar? ")
 		letra=letra.upper()
 		comprobar_letra(letra)
-		print("Te quedan %s vidas." % (vidas))
+		print("\nTe quedan %s vidas." % (vidas))
 		print ("______")
 		print ("| |")
 		if vidas == 6:
@@ -83,6 +91,7 @@ while lista_lineas!=palabra_ahorcado and jugar==True:
 									jugar=False
                   
   
-if lista_lineas==palabra_ahorcado:
-	print("Enhorabuena. Te has pasado el juego, eres una bestia. Puedes pasar a otro juego, que eres un genio.")
+	if lista_lineas==palabra_ahorcado:
+		print("Enhorabuena. Te has pasado el juego, eres una bestia. Puedes pasar a otro juego, que eres un genio.")
 #Y ahora...PAL MENU
+
