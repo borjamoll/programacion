@@ -1,6 +1,5 @@
 import random
 import time
-<<<<<<< HEAD
 #Variables tic tac toe
 tabla=[1, 2, 3, 4, 5, 6, 7, 8, 9]
 numeros_cogidos=[]
@@ -18,23 +17,12 @@ palabra_ahorcado=[]
 #Diccionario para los elementos del piedra papel tijera
 diccionario_jugadas = {'1':'Piedra','2' : 'Papel', '3' : 'Tijeras' , '4' : 'Lagarto', '5' : 'Spock'}
 #Variables para las opciones de los jugadores y sus puntuaciones
-=======
-lista_lineas=[]
-iguales="========================"
-vidas=3
-jugar=True
-palabra_ahorcado=[]
-diccionario_jugadas = {'1':'Piedra','2' : 'Papel', '3' : 'Tijeras' , '4' : 'Lagarto', '5' : 'Spock'}
->>>>>>> 5f21dc6c5bf08878a34671a733f1a3d55da7ceb6
 opciones_jugador1=0
 opciones_jugador2=0
 puntuacion_jugador1=0
 puntuacion_jugador2=0
 identidad=""
-<<<<<<< HEAD
 letra=""
-=======
->>>>>>> 5f21dc6c5bf08878a34671a733f1a3d55da7ceb6
 
 ### =================== JUEGO PIEDRA PAPEL TIJERAS LAGARTO SPOCK  =================== ###
 
@@ -78,12 +66,7 @@ def comprueba_resultado(opciones_jugador1,opciones_jugador2):
     else:
         mensaje = "Has perdido"
     print(mensaje)
-    print(identidad)
-<<<<<<< HEAD
     if identidad=="La maquina" or identidad=="El jugador 2":
-=======
-    if identidad == "El jugador 2":
->>>>>>> 5f21dc6c5bf08878a34671a733f1a3d55da7ceb6
         if mensaje == "Has ganado":
             puntuacion_jugador1+=1
         elif mensaje == "Has perdido":
@@ -111,18 +94,12 @@ def menu_ppt_1j():
         print(iguales)
         comprueba_resultado(opciones_ppt_1j,aleatorio_ppt())
         vidas-=1
-<<<<<<< HEAD
         print("Tú puntuación: ", puntuacion_jugador1)
         print("Puntuación de la máquina: ", puntuacion_jugador2)
-    jugar=input("¿Quiere volver a jugar? (True/False)")
-    if (jugar==True):
+    jugar=input("¿Quieres volver a jugar? (Si/No) ")
+    if (jugar=="Si" or jugar=="si"):
         vidas=3
-=======
-    jugar=input("¿Quiere volver a jugar? (True/False)")
-    if (jugar==True):
-        jugadas=3
->>>>>>> 5f21dc6c5bf08878a34671a733f1a3d55da7ceb6
-        menu_ppt_1j()
+        piedra_papel_tijeras_big_bang()
     else:
         print("Hasta la vista")
         menu()
@@ -130,8 +107,6 @@ def menu_ppt_1j():
 #Menu 2 jugadores
 def menu_ppt_2j():
     global identidad
-    puntuacion_jugador1=0
-    puntuacion_jugador2=0
     identidad="El jugador 2"
     jugadas=3
     jugar=True
@@ -153,7 +128,6 @@ def menu_ppt_2j():
         print("5-Spock")
         opciones_ppt_1j=int(input("La opción de %s: "%(jugador1)))
         print(iguales)
-<<<<<<< HEAD
         for _ in range(20):
             print(" ")
         opciones_ppt_2j=int(input("La opción de %s: "%(jugador2)))
@@ -162,16 +136,6 @@ def menu_ppt_2j():
         comprueba_resultado(opciones_ppt_1j,opciones_ppt_2j)
         jugadas-=1
     jugar=input("¿Quiere volver a jugar? (True/False)")
-=======
-        for i in range(20):
-            print(" ")
-        opciones_ppt_2j=int(input("La opción de %s: "%(jugador2)) )
-        for x in range(20):
-            print(" ")
-        comprueba_resultado(opciones_ppt_1j,opciones_ppt_2j)
-        jugadas-=1
-    continuar=input("¿Quiere volver a jugar? (True/False)")
->>>>>>> 5f21dc6c5bf08878a34671a733f1a3d55da7ceb6
     if (jugar==True):
         jugadas=3
     else:
@@ -180,6 +144,8 @@ def menu_ppt_2j():
 
 #Funcion para iniciar el Piedra Papel Tijeras. Permite elegir la modalidad (1-2 jugadores)
 def piedra_papel_tijeras_big_bang():
+    puntuacion_jugador1=0
+    puntuacion_jugador2=0
     print(("=")*29)
     print("1- 1 jugador")
     print("2- 2 jugadores")
@@ -212,7 +178,6 @@ def crear_lineas():
 def split(palabra): 
 	return [caracter for caracter in palabra]  
 
-<<<<<<< HEAD
 #Función que comprueba si ya se ha introducido la letra
 def letra_usada():
 	global letra
@@ -222,8 +187,6 @@ def letra_usada():
 	comprobar_letra(letra)
 	return()
         
-=======
->>>>>>> 5f21dc6c5bf08878a34671a733f1a3d55da7ceb6
 #Función que comprueba la letra introducida en la palabra. (**No sé que poner en return)
 def comprobar_letra(letra):
 	global palabra_ahorcado
@@ -234,25 +197,17 @@ def comprobar_letra(letra):
 			letra_encontrada=True
 			lista_lineas[i]=palabra_ahorcado[i]
 		print (lista_lineas[i],end=" ")
-<<<<<<< HEAD
 		usada.append(palabra_ahorcado[i])
 	if letra_encontrada==False:
 		vidas-=1
 	
-=======
-	if letra_encontrada==False:
-		vidas-=1
->>>>>>> 5f21dc6c5bf08878a34671a733f1a3d55da7ceb6
 	return()
 
 #Mientras que no se hayan encontrado tantas letra como tiene la palabra, se siguen pidiendo letras. También mientras no la palme el usuario.
 def juego_ahorcado():
 	global jugar
 	global vidas
-<<<<<<< HEAD
 	global letra
-=======
->>>>>>> 5f21dc6c5bf08878a34671a733f1a3d55da7ceb6
 	vidas = 6
 	preguntar_palabra()
 	crear_lineas()
@@ -261,11 +216,7 @@ def juego_ahorcado():
 		print(iguales)
 		letra= input("Letra a comprobar? ")
 		letra=letra.upper()
-<<<<<<< HEAD
 		letra_usada()
-=======
-		comprobar_letra(letra)
->>>>>>> 5f21dc6c5bf08878a34671a733f1a3d55da7ceb6
 		print("\nTe quedan %s vidas." % (vidas))
 		print ("______")
 		print ("| |")
@@ -312,7 +263,7 @@ def juego_ahorcado():
 	if lista_lineas==palabra_ahorcado:
 		print("Enhorabuena. Te has pasado el juego, eres una bestia. Puedes pasar a otro juego, que eres un genio.")
 		menu()
-<<<<<<< HEAD
+        
 #=============================== TIC TAC TOE ===================================
 def vaciar_tabla():
     tabla=[1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -391,13 +342,16 @@ def jugador_tictactoe(marcador):
 
 def modo_juego_tictactoe():
     global opcion
-    opcion=int(input("Aqui viene lo q viene a ser la opcion. 1 es maquina, 2 para incorporar jugador extra: "))
+    print(("=")*29)
+    print("1- 1 jugador")
+    print("2- 2 jugadores")
+    print(("=")*29)
+    opcion=int(input("¿Quieres jugar contra la máquina o contra otro jugador? "))
     vaciar_tabla()
     mostrar_tabla()
     pide_numero(opcion)
-=======
 
->>>>>>> 5f21dc6c5bf08878a34671a733f1a3d55da7ceb6
+#================================= MENÚ DE INICIO PROGRAMA ==============================
 def menu():
     print(iguales)
     print("   SELECTOR DE JUEGOS   ")
@@ -405,6 +359,7 @@ def menu():
     print(" OPCIÓN 1: PIEDRA PAPEL TIJERAS LAGARTO SPOOK ")
     print(" OPCIÓN 2: JUEGO DEL AHORCADO ")
     print(" OPCIÓN 3: TIC TAC TOE")
+    print(" OPCIÓN 4: Salir")
     print(iguales)
     opcion = input("Introduce la opción deseada: ")
     if opcion == "1":
@@ -412,11 +367,9 @@ def menu():
     elif opcion == "2":
         juego_ahorcado()
     elif opcion == "3":
-<<<<<<< HEAD
         modo_juego_tictactoe()
-=======
-        juego_ahorcado()
->>>>>>> 5f21dc6c5bf08878a34671a733f1a3d55da7ceb6
+    elif opcion == "4":
+        print("Gracias por utilizar nuestro proyecto.")
     else:
         print("Opción inválida. Prueba de nuevo.")
         menu()
