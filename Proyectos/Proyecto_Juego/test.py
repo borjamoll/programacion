@@ -91,5 +91,5 @@ def ahorcado():
 									print("La has cagado, máquina. Pero no pasa nada. Puedes pasar a otro juego, a ver si se te da mejor.")
 									jugar=False
 	if lista_lineas==palabra_ahorcado:
-	print("Enhorabuena. Te has pasado el juego, eres una bestia. Puedes pasar a otro juego, que eres un genio.")                 
+		print("Enhorabuena. Te has pasado el juego, eres una bestia. Puedes pasar a otro juego, que eres un genio.")                 
 

@@ -2,6 +2,7 @@ lista_lineas=[]
 iguales="========================"
 vidas=6
 jugar=True
+usada=[]
 
 #Función que divide palabras.
 def split(palabra): 
@@ -23,7 +24,13 @@ def comprobar_letra(letra):
 		print (lista_lineas[i],end=" ")
 	if letra_encontrada==False:
 		vidas-=1
+	usada.append(palabra_ahorcado[i])
 	return()
+def letra_usada():
+	if letra in usada:
+		print("Ya has usado esa letra")
+		comprobar_letra(letra)
+
 
 #(**)APPEND . Sirve para iniciar pero no cuando se desarrolla el juego. bueno con parche funcionaría, Edu está en proceso de ello.
 for i in range (len(palabra_ahorcado)):
@@ -33,13 +40,12 @@ for i in range (len(palabra_ahorcado)):
 #Mientras que no se hayan encontrado tantas letra como tiene la palabra, se siguen pidiendo letras. También mientras no la palme el usuario.
 while lista_lineas!=palabra_ahorcado and jugar==True:
 		print(" ")
-		print(lista_lineas)
-		print(palabra_ahorcado)
 		print(iguales)
 		letra= input("Letra a comprobar? ")
 		letra=letra.upper()
 		comprobar_letra(letra)
-		print("Te quedan %s vidas." % (vidas))
+		letra_usada()
+		print("\nTe quedan %s vidas." % (vidas))
 		print ("______")
 		print ("| |")
 		if vidas == 6:
