@@ -1,5 +1,6 @@
 import random
 import time
+import os
 #Variables tic tac toe
 tabla=[1, 2, 3, 4, 5, 6, 7, 8, 9]
 numeros_cogidos=[]
@@ -26,6 +27,8 @@ letra=""
 
 ### =================== JUEGO PIEDRA PAPEL TIJERAS LAGARTO SPOCK  =================== ###
 
+def limpiapantalla():
+    os.system("cls")
 #Funcion maquina. Genera un valor aleatorio entre 1 y 5
 def aleatorio_ppt():
     opcion_maquina=random.randint(1,5)
@@ -42,34 +45,34 @@ def comprueba_resultado(opciones_jugador1,opciones_jugador2):
     print("Tú has seleccionado: ", end="")
     print(diccionario_jugadas['%s' %(opciones_jugador1)])
     if (opciones_jugador1)==opciones_jugador2:
-        mensaje = "Has empatado"
+        mensaje = "Has empatado esta ronda"
     elif (opciones_jugador1==3) and (opciones_jugador2==2):
-        mensaje = "Has ganado"
+        mensaje = "Has ganado esta ronda"
     elif (opciones_jugador1==2) and (opciones_jugador2==1):
-        mensaje = "Has ganado"
+        mensaje = "Has ganado esta ronda"
     elif (opciones_jugador1==1) and (opciones_jugador2==4):
-        mensaje = "Has ganado"
+        mensaje = "Has ganado esta ronda"
     elif (opciones_jugador1==4) and (opciones_jugador2==5):
-        mensaje = "Has ganado"
+        mensaje = "Has ganado esta ronda"
     elif (opciones_jugador1==5) and (opciones_jugador2==3):
-        mensaje = "Has ganado"
+        mensaje = "Has ganado esta ronda"
     elif (opciones_jugador1==3) and (opciones_jugador2==4):
-        mensaje = "Has ganado"
+        mensaje = "Has ganado esta ronda"
     elif (opciones_jugador1==4) and (opciones_jugador2==2):
-        mensaje = "Has ganado"
+        mensaje = "Has ganado esta ronda"
     elif (opciones_jugador1==2) and (opciones_jugador2==5):
-        mensaje = "Has ganado"
+        mensaje = "Has ganado esta ronda"
     elif (opciones_jugador1==5) and (opciones_jugador2==1):
-        mensaje = "Has ganado"
+        mensaje = "Has ganado esta ronda"
     elif (opciones_jugador1==1) and (opciones_jugador2==3):
-        mensaje = "Has ganado"
+        mensaje = "Has ganado esta ronda"
     else:
-        mensaje = "Has perdido"
+        mensaje = "Has perdido esta ronda"
     print(mensaje)
     if identidad=="La maquina" or identidad=="El jugador 2":
-        if mensaje == "Has ganado":
+        if mensaje == "Has ganado esta ronda":
             puntuacion_jugador1+=1
-        elif mensaje == "Has perdido":
+        elif mensaje == "Has perdido esta ronda":
             puntuacion_jugador2+=1 
 
 
@@ -96,6 +99,10 @@ def menu_ppt_1j():
         vidas-=1
         print("Tú puntuación: ", puntuacion_jugador1)
         print("Puntuación de la máquina: ", puntuacion_jugador2)
+    if puntuacion_jugador1 > puntuacion_jugador2:
+        print("Has ganado la partida")
+    else:
+        print("Ha ganado la partida la máquina")
     jugar=input("¿Quieres volver a jugar? (Si/No) ")
     if (jugar=="Si" or jugar=="si"):
         vidas=3
@@ -127,23 +134,28 @@ def menu_ppt_2j():
         print("4-Lagarto")
         print("5-Spock")
         opciones_ppt_1j=int(input("La opción de %s: "%(jugador1)))
-        print(iguales)
-        for _ in range(20):
-            print(" ")
+        limpiapantalla()
         opciones_ppt_2j=int(input("La opción de %s: "%(jugador2)))
-        for _ in range(20):
-            print(" ")
+        limpiapantalla()
         comprueba_resultado(opciones_ppt_1j,opciones_ppt_2j)
         jugadas-=1
-    jugar=input("¿Quiere volver a jugar? (True/False)")
-    if (jugar==True):
-        jugadas=3
+    if puntuacion_jugador1 > puntuacion_jugador2:
+        print("Ha ganado ",jugador1)
+    elif puntuacion_jugador2 > puntuacion_jugador1:
+        print("Ha ganado ",jugador2)
     else:
-        jugar=False
+        print("Se trata de un empate.")
+    jugar=input("¿Quiere volver a jugar? (Si/No)")
+    if (jugar=="Si" or jugar=="si"):
+        jugadas=3
+        piedra_papel_tijeras_big_bang()
+    else:
         menu()
 
 #Funcion para iniciar el Piedra Papel Tijeras. Permite elegir la modalidad (1-2 jugadores)
 def piedra_papel_tijeras_big_bang():
+    global puntuacion_jugador1
+    global puntuacion_jugador2
     puntuacion_jugador1=0
     puntuacion_jugador2=0
     print(("=")*29)
@@ -162,6 +174,10 @@ def piedra_papel_tijeras_big_bang():
 
 #Funcion que pregunta la palabra del juego
 def preguntar_palabra():
+	global lista_lineas
+	global usada
+	lista_lineas=[]
+	usada=[]
 	global palabra_ahorcado
 	palabra = input("Palabra a introducir? ")
 	palabra=palabra.upper()
@@ -177,16 +193,7 @@ def crear_lineas():
 #Función que divide palabras.
 def split(palabra): 
 	return [caracter for caracter in palabra]  
-
-#Función que comprueba si ya se ha introducido la letra
-def letra_usada():
-	global letra
-	global usada
-	if letra in usada:
-		print("Ya has usado esa letra...")
-	comprobar_letra(letra)
-	return()
-        
+       
 #Función que comprueba la letra introducida en la palabra. (**No sé que poner en return)
 def comprobar_letra(letra):
 	global palabra_ahorcado
@@ -197,10 +204,13 @@ def comprobar_letra(letra):
 			letra_encontrada=True
 			lista_lineas[i]=palabra_ahorcado[i]
 		print (lista_lineas[i],end=" ")
-		usada.append(palabra_ahorcado[i])
-	if letra_encontrada==False:
+	if letra in usada:
+		print(usada)
+		print("Ya has usado esa letra.")
 		vidas-=1
-	
+	elif letra_encontrada==False:
+		vidas-=1
+	usada.append(letra)
 	return()
 
 #Mientras que no se hayan encontrado tantas letra como tiene la palabra, se siguen pidiendo letras. También mientras no la palme el usuario.
@@ -216,7 +226,7 @@ def juego_ahorcado():
 		print(iguales)
 		letra= input("Letra a comprobar? ")
 		letra=letra.upper()
-		letra_usada()
+		comprobar_letra(letra)
 		print("\nTe quedan %s vidas." % (vidas))
 		print ("______")
 		print ("| |")
@@ -266,18 +276,20 @@ def juego_ahorcado():
         
 #=============================== TIC TAC TOE ===================================
 def vaciar_tabla():
+    global tabla
     tabla=[1, 2, 3, 4, 5, 6, 7, 8, 9]
-    return tabla
 
 def mostrar_tabla():
-    print(tabla[0] , " | " , tabla[1] , " | " , tabla[2])
-    print(tabla[3] , " | " , tabla[4] , " | " , tabla[5])
-    print(tabla[6] , " | " , tabla[7] , " | " , tabla[8])
-
-def comprobar_resultado():
+    print(" -----------------")
+    print("| ", tabla[0] , " | " , tabla[1] , " | " , tabla[2]," |")
+    print(" -----------------")
+    print("| ",tabla[3] , " | " , tabla[4] , " | " , tabla[5]," |")
+    print(" -----------------")
+    print("| ",tabla[6] , " | " , tabla[7] , " | " , tabla[8]," |")
+    print(" -----------------")
+def comprobar_resultado(): #Tengo lag, ha llegado mi madre y esta chupando el medio mega de wifi que tenemos "contratado", no hablare un rato
     if (tabla[0]==tabla[1]==tabla[2] or tabla[3]==tabla[4]==tabla[5] or tabla[6]==tabla[7]==tabla[8] or tabla[0]==tabla[3]==tabla[6] or tabla[1]==tabla[4]==tabla[7] or tabla[2]==tabla[5]==tabla[8] or tabla[0]==tabla[4]==tabla[8] or tabla[2]==tabla[4]==tabla[6]):
         return(True)
-
 
 def pide_numero(x):
     global casillas_usadas
@@ -308,6 +320,7 @@ def pide_numero(x):
     #Termina el IF
     if estado_partida=="Terminada":
         print("Se da la partida por terminada.")
+        menu()
     else: 
         pide_numero(opcion)
     #OPCIÓN ALTERNATIVA: LISTA DE POSICIONES USADAS
@@ -332,16 +345,20 @@ def jugador_tictactoe(marcador):
         print("Enhorabuena, has ganado campeón.")
         turno=False
         estado_partida="Terminada"
-        menu()
-    elif casillas_usadas==9:
+    elif casillas_usadas == 9:
+        print("Vaya...es un empate.")
         estado_partida="Terminada"
-        menu()
     else:
         turno=True
     return()
 
 def modo_juego_tictactoe():
+    global tabla
     global opcion
+    global casillas_usadas
+    global turno
+    turno = True
+    casillas_usadas = 0
     print(("=")*29)
     print("1- 1 jugador")
     print("2- 2 jugadores")
