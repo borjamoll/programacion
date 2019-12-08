@@ -1,8 +1,10 @@
 import random
-import time
+from colorama import Fore, init, Style
+init()
 import os
 #Variables tic tac toe
 tabla=[1, 2, 3, 4, 5, 6, 7, 8, 9]
+tabla_ejemplo=[1, 2, 3, 4, 5, 6, 7, 8, 9]
 numeros_cogidos=[]
 turno=True
 casillas_usadas=0
@@ -40,6 +42,7 @@ def comprueba_resultado(opciones_jugador1,opciones_jugador2):
     global identidad
     global puntuacion_jugador1
     global puntuacion_jugador2
+    limpiapantalla()
     print("" + str(identidad) + " ha seleccionado: ", end="")
     print(diccionario_jugadas['%s' %(opciones_jugador2)])
     print("Tú has seleccionado: ", end="")
@@ -75,6 +78,17 @@ def comprueba_resultado(opciones_jugador1,opciones_jugador2):
         elif mensaje == "Has perdido esta ronda":
             puntuacion_jugador2+=1 
 
+#Procedimiento para mostrar las opciones
+def opciones_jugar():
+    print(iguales)
+    print("Indica la opción que quieres. ")
+    print(iguales)
+    print("1-Piedra")
+    print("2-Papel")
+    print("3-Tijeras")
+    print("4-Lagarto")
+    print("5-Spock")
+    print(iguales)
 
 #Menu 1 jugador       
 def menu_ppt_1j():
@@ -84,21 +98,14 @@ def menu_ppt_1j():
     global puntuacion_jugador2
     identidad="La maquina"
     while(vidas>=1):
-        print(iguales)
-        print("Indica la opción que quieres. ")
-        print(iguales)
-        print("1-Piedra")
-        print("2-Papel")
-        print("3-Tijeras")
-        print("4-Lagarto")
-        print("5-Spock")
-        print(iguales)
+        opciones_jugar()
         opciones_ppt_1j=int(input("Indica tu opción? "))
         print(iguales)
         comprueba_resultado(opciones_ppt_1j,aleatorio_ppt())
         vidas-=1
         print("Tú puntuación: ", puntuacion_jugador1)
         print("Puntuación de la máquina: ", puntuacion_jugador2)
+    limpiapantalla()
     if puntuacion_jugador1 > puntuacion_jugador2:
         print("Has ganado la partida")
     else:
@@ -125,20 +132,15 @@ def menu_ppt_2j():
             print(iguales)
         print("Tú puntuación: %i" %puntuacion_jugador1)
         print("Puntuación del jugador 2: %i" %puntuacion_jugador2)
-        print(iguales)
-        print("Indica la opción que quieres.")
-        print(iguales)
-        print("1-Piedra")
-        print("2-Papel")
-        print("3-Tijeras")
-        print("4-Lagarto")
-        print("5-Spock")
+        opciones_jugar()
         opciones_ppt_1j=int(input("La opción de %s: "%(jugador1)))
         limpiapantalla()
+        opciones_jugar()
         opciones_ppt_2j=int(input("La opción de %s: "%(jugador2)))
         limpiapantalla()
         comprueba_resultado(opciones_ppt_1j,opciones_ppt_2j)
         jugadas-=1
+    limpiapantalla()
     if puntuacion_jugador1 > puntuacion_jugador2:
         print("Ha ganado ",jugador1)
     elif puntuacion_jugador2 > puntuacion_jugador1:
@@ -220,6 +222,7 @@ def juego_ahorcado():
 	global letra
 	vidas = 6
 	preguntar_palabra()
+	limpiapantalla()
 	crear_lineas()
 	while lista_lineas!=palabra_ahorcado and jugar==True:
 		print(" ")
@@ -280,13 +283,24 @@ def vaciar_tabla():
     tabla=[1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 def mostrar_tabla():
+    print("Posiciones")
     print(" -----------------")
-    print("| ", tabla[0] , " | " , tabla[1] , " | " , tabla[2]," |")
+    print("| ", tabla_ejemplo[0] , " | " , tabla_ejemplo[1] , " | " ,tabla_ejemplo[2]," |")
     print(" -----------------")
-    print("| ",tabla[3] , " | " , tabla[4] , " | " , tabla[5]," |")
+    print("| ",tabla_ejemplo[3] , " | " , tabla_ejemplo[4] , " | " , tabla_ejemplo[5]," |")
     print(" -----------------")
-    print("| ",tabla[6] , " | " , tabla[7] , " | " , tabla[8]," |")
+    print("| ",tabla_ejemplo[6] , " | " , tabla_ejemplo[7] , " | " , tabla_ejemplo[8]," |")
     print(" -----------------")
+    print(" ")
+    print(" "*5,"Tablero de juego")
+    print(" ---------------------")
+    print("| ",Fore.BLACK+(str(tabla[0])) ,(Style.RESET_ALL)," | " ,Fore.BLACK+(str(tabla[1])),(Style.RESET_ALL)," | ",Fore.BLACK+(str(tabla[2])),(Style.RESET_ALL)," |")
+    print(" ---------------------")
+    print("| ",Fore.BLACK+(str(tabla[3])) ,(Style.RESET_ALL)," | " ,Fore.BLACK+(str(tabla[4])),(Style.RESET_ALL)," | ",Fore.BLACK+(str(tabla[5])),(Style.RESET_ALL)," |")
+    print(" ---------------------")
+    print("| ",Fore.BLACK+(str(tabla[6])), (Style.RESET_ALL)," | " ,Fore.BLACK+(str(tabla[7])),(Style.RESET_ALL)," | ",Fore.BLACK+(str(tabla[8])),(Style.RESET_ALL)," |")
+    print(" ---------------------")
+
 def comprobar_resultado(): #Tengo lag, ha llegado mi madre y esta chupando el medio mega de wifi que tenemos "contratado", no hablare un rato
     if (tabla[0]==tabla[1]==tabla[2] or tabla[3]==tabla[4]==tabla[5] or tabla[6]==tabla[7]==tabla[8] or tabla[0]==tabla[3]==tabla[6] or tabla[1]==tabla[4]==tabla[7] or tabla[2]==tabla[5]==tabla[8] or tabla[0]==tabla[4]==tabla[8] or tabla[2]==tabla[4]==tabla[6]):
         return(True)
@@ -301,8 +315,8 @@ def pide_numero(x):
     if x == 1:
         while turno==True and casillas_usadas<9:
             posicion=random.randint(1,9)
-            if tabla[posicion-1] and tabla[posicion-1]!="X" and tabla[posicion-1]!="Y":
-                tabla[posicion-1]="Y"
+            if tabla[posicion-1] and tabla[posicion-1]!=(Fore.WHITE+"X") and tabla[posicion-1]!=(Fore.WHITE+"Y"):
+                tabla[posicion-1]=Fore.WHITE+("Y")
                 turno=False
                 casillas_usadas+=1
                 print("Jugada de la máquina:")
@@ -331,8 +345,8 @@ def jugador_tictactoe(marcador):
     global estado_partida
     while turno==True:
         posicion=int(input("Indica un número que será la posición: "))
-        if (tabla[posicion-1]) and tabla[posicion-1]!="X" and tabla[posicion-1]!="Y":
-            tabla[posicion-1]=marcador
+        if (tabla[posicion-1]) and tabla[posicion-1]!=(Fore.WHITE+"X") and tabla[posicion-1]!=(Fore.WHITE+"Y"):
+            tabla[posicion-1]=(Fore.WHITE+marcador)
             turno=False
             casillas_usadas+=1
             print("Tu jugada:")
