@@ -1,9 +1,7 @@
 import random
-from colorama import Fore, init, Style
-init()
 import os
 #Variables tic tac toe
-tabla=[1, 2, 3, 4, 5, 6, 7, 8, 9]
+tabla=[1,2,3,4,5,6,7,8,9]
 tabla_ejemplo=[1, 2, 3, 4, 5, 6, 7, 8, 9]
 numeros_cogidos=[]
 turno=True
@@ -12,6 +10,7 @@ casillas_usadas=0
 usada=[]
 lista_lineas=[]
 iguales="========================"
+lineas=" -----------------------"
 #Vidas piedra papel tijera, en ahorcado se modifican a 6
 vidas=3
 jugar=True
@@ -28,9 +27,10 @@ identidad=""
 letra=""
 
 ### =================== JUEGO PIEDRA PAPEL TIJERAS LAGARTO SPOCK  =================== ###
-
+#Procedimiento para reiniciar la imformación mostrada en pantalla
 def limpiapantalla():
     os.system("cls")
+
 #Funcion maquina. Genera un valor aleatorio entre 1 y 5
 def aleatorio_ppt():
     opcion_maquina=random.randint(1,5)
@@ -92,17 +92,19 @@ def opciones_jugar():
 
 #Menu 1 jugador       
 def menu_ppt_1j():
-    global vidas
     global identidad
     global puntuacion_jugador1
     global puntuacion_jugador2
+    jugadas=3
     identidad="La maquina"
-    while(vidas>=1):
+    while(jugadas>0):
         opciones_jugar()
         opciones_ppt_1j=int(input("Indica tu opción? "))
         print(iguales)
+        if  opciones_ppt_1j>5:
+            opciones_ppt_1j=int(input("Opción no válida intentalo otra vez:"))
         comprueba_resultado(opciones_ppt_1j,aleatorio_ppt())
-        vidas-=1
+        jugadas-=1
         print("Tú puntuación: ", puntuacion_jugador1)
         print("Puntuación de la máquina: ", puntuacion_jugador2)
     limpiapantalla()
@@ -112,7 +114,7 @@ def menu_ppt_1j():
         print("Ha ganado la partida la máquina")
     jugar=input("¿Quieres volver a jugar? (Si/No) ")
     if (jugar=="Si" or jugar=="si"):
-        vidas=3
+        jugadas=3
         piedra_papel_tijeras_big_bang()
     else:
         print("Hasta la vista")
@@ -134,9 +136,13 @@ def menu_ppt_2j():
         print("Puntuación del jugador 2: %i" %puntuacion_jugador2)
         opciones_jugar()
         opciones_ppt_1j=int(input("La opción de %s: "%(jugador1)))
+        while opciones_ppt_1j>5:
+            opciones_ppt_1j=int(input("Opción no válida prueba otra vez:"))
         limpiapantalla()
         opciones_jugar()
         opciones_ppt_2j=int(input("La opción de %s: "%(jugador2)))
+        while opciones_ppt_2j>5:
+            opciones_ppt_2j=int(input("Opción no válida prueba otra vez:"))
         limpiapantalla()
         comprueba_resultado(opciones_ppt_1j,opciones_ppt_2j)
         jugadas-=1
@@ -174,7 +180,7 @@ def piedra_papel_tijeras_big_bang():
 
 ### ====================================== JUEGO DEL AHORCADO =============================== ###
 
-#Funcion que pregunta la palabra del juego
+#Procedimiento que pregunta la palabra del juego
 def preguntar_palabra():
 	global lista_lineas
 	global usada
@@ -185,14 +191,14 @@ def preguntar_palabra():
 	palabra=palabra.upper()
 	palabra_ahorcado=split(palabra)
 
-#Función que crea la lista de líneas (_ _ _ _)
+#Procedimiento que crea la lista de líneas (_ _ _ _)
 def crear_lineas():
 	global palabra_ahorcado
 	for i in range (len(palabra_ahorcado)):
 		lista_lineas.append("_")
 		print(lista_lineas[i],end=" ")  
 
-#Función que divide palabras.
+#Procedimiento que divide palabras.
 def split(palabra): 
 	return [caracter for caracter in palabra]  
        
@@ -207,7 +213,6 @@ def comprobar_letra(letra):
 			lista_lineas[i]=palabra_ahorcado[i]
 		print (lista_lineas[i],end=" ")
 	if letra in usada:
-		print(usada)
 		print("Ya has usado esa letra.")
 		vidas-=1
 	elif letra_encontrada==False:
@@ -283,25 +288,27 @@ def vaciar_tabla():
     tabla=[1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 def mostrar_tabla():
-    print("Posiciones")
-    print(" -----------------")
-    print("| ", tabla_ejemplo[0] , " | " , tabla_ejemplo[1] , " | " ,tabla_ejemplo[2]," |")
-    print(" -----------------")
+    global lineas
+    os.system("")
+    print(" "*3,"Posiciones")
+    print(" ------------------")
+    print("| ",tabla_ejemplo[0] , " | " , tabla_ejemplo[1] , " | " ,tabla_ejemplo[2]," |")
+    print(" ------------------")
     print("| ",tabla_ejemplo[3] , " | " , tabla_ejemplo[4] , " | " , tabla_ejemplo[5]," |")
-    print(" -----------------")
+    print(" ------------------")
     print("| ",tabla_ejemplo[6] , " | " , tabla_ejemplo[7] , " | " , tabla_ejemplo[8]," |")
-    print(" -----------------")
+    print(" ------------------")
     print(" ")
-    print(" "*5,"Tablero de juego")
-    print(" ---------------------")
-    print("| ",Fore.BLACK+(str(tabla[0])) ,(Style.RESET_ALL)," | " ,Fore.BLACK+(str(tabla[1])),(Style.RESET_ALL)," | ",Fore.BLACK+(str(tabla[2])),(Style.RESET_ALL)," |")
-    print(" ---------------------")
-    print("| ",Fore.BLACK+(str(tabla[3])) ,(Style.RESET_ALL)," | " ,Fore.BLACK+(str(tabla[4])),(Style.RESET_ALL)," | ",Fore.BLACK+(str(tabla[5])),(Style.RESET_ALL)," |")
-    print(" ---------------------")
-    print("| ",Fore.BLACK+(str(tabla[6])), (Style.RESET_ALL)," | " ,Fore.BLACK+(str(tabla[7])),(Style.RESET_ALL)," | ",Fore.BLACK+(str(tabla[8])),(Style.RESET_ALL)," |")
-    print(" ---------------------")
+    print(" "*2,"Tablero de juego")
+    print(lineas)
+    print("| ","\033[30m",(str(tabla[0])),"\033[0m"," | ","\033[30m" ,(str(tabla[1])),"\033[0m"," | ","\033[30m",(str(tabla[2])),"\033[0m"," |")
+    print(lineas)
+    print("| ","\033[30m",(str(tabla[3])),"\033[0m"," | ","\033[30m" ,(str(tabla[4])),"\033[0m"," | ","\033[30m",(str(tabla[5])),"\033[0m"," |")
+    print(lineas)
+    print("| ","\033[30m",(str(tabla[6])),"\033[0m"," | ","\033[30m" ,(str(tabla[7])),"\033[0m"," | ","\033[30m",(str(tabla[8])),"\033[0m"," |")
+    print(lineas)
 
-def comprobar_resultado(): #Tengo lag, ha llegado mi madre y esta chupando el medio mega de wifi que tenemos "contratado", no hablare un rato
+def comprobar_resultado():
     if (tabla[0]==tabla[1]==tabla[2] or tabla[3]==tabla[4]==tabla[5] or tabla[6]==tabla[7]==tabla[8] or tabla[0]==tabla[3]==tabla[6] or tabla[1]==tabla[4]==tabla[7] or tabla[2]==tabla[5]==tabla[8] or tabla[0]==tabla[4]==tabla[8] or tabla[2]==tabla[4]==tabla[6]):
         return(True)
 
@@ -310,13 +317,13 @@ def pide_numero(x):
     global estado_partida
     turno=True
     estado_partida="En juego"
-    jugador_tictactoe("X")
+    jugador_tictactoe("\033[37mX\033[0m")
     #Empieza el IF DE LA MAQUINA
     if x == 1:
-        while turno==True and casillas_usadas<9:
+        while turno==True and casillas_usadas<9 and estado_partida=="En juego":
             posicion=random.randint(1,9)
-            if tabla[posicion-1] and tabla[posicion-1]!=(Fore.WHITE+"X") and tabla[posicion-1]!=(Fore.WHITE+"Y"):
-                tabla[posicion-1]=Fore.WHITE+("Y")
+            if tabla[posicion-1] and tabla[posicion-1]!=("\033[37mX\033[0m") and tabla[posicion-1]!=("\033[37mY\033[0m"):
+                tabla[posicion-1]=("\033[37mY\033[0m")
                 turno=False
                 casillas_usadas+=1
                 print("Jugada de la máquina:")
@@ -329,7 +336,7 @@ def pide_numero(x):
     #Termina el IF
     #EMPIEZA el IF DEL 2DO JUGADOR
     if x == 2 and casillas_usadas<9 and estado_partida=="En juego":
-        jugador_tictactoe("Y")   
+        jugador_tictactoe("\033[37mY\033[0m")   
         
     #Termina el IF
     if estado_partida=="Terminada":
@@ -345,8 +352,8 @@ def jugador_tictactoe(marcador):
     global estado_partida
     while turno==True:
         posicion=int(input("Indica un número que será la posición: "))
-        if (tabla[posicion-1]) and tabla[posicion-1]!=(Fore.WHITE+"X") and tabla[posicion-1]!=(Fore.WHITE+"Y"):
-            tabla[posicion-1]=(Fore.WHITE+marcador)
+        if (tabla[posicion-1]) and tabla[posicion-1]!=("\033[37mX\033[0m") and tabla[posicion-1]!=("\033[37mY\033[0m"):
+            tabla[posicion-1]=(marcador)
             turno=False
             casillas_usadas+=1
             print("Tu jugada:")
