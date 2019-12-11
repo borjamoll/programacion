@@ -90,6 +90,20 @@ def opciones_jugar():
     print("5-Spock")
     print(iguales)
 
+def reglas():
+    print(("=")*29)
+    print("Piedra aplasta lagarto")
+    print("Lagarto envenena Spock")
+    print("Spock aplasta tijeras")
+    print("Tijeras decapitan lagarto")
+    print("Lagarto come papel")
+    print("Papel desacretida Spock")
+    print("Spock vaporiza piedra")
+    print("Piedra aplasta tijeras")
+    print("Tijeras cortan papel")
+    print("Papel envuelve piedra")
+    print("")
+
 #Menu 1 jugador       
 def menu_ppt_1j():
     global identidad
@@ -101,7 +115,7 @@ def menu_ppt_1j():
         opciones_jugar()
         opciones_ppt_1j=int(input("Indica tu opción? "))
         print(iguales)
-        if  opciones_ppt_1j>5:
+        while opciones_ppt_1j>5:
             opciones_ppt_1j=int(input("Opción no válida intentalo otra vez:"))
         comprueba_resultado(opciones_ppt_1j,aleatorio_ppt())
         jugadas-=1
@@ -166,6 +180,7 @@ def piedra_papel_tijeras_big_bang():
     global puntuacion_jugador2
     puntuacion_jugador1=0
     puntuacion_jugador2=0
+    reglas()
     print(("=")*29)
     print("1- 1 jugador")
     print("2- 2 jugadores")
@@ -352,6 +367,8 @@ def jugador_tictactoe(marcador):
     global estado_partida
     while turno==True:
         posicion=int(input("Indica un número que será la posición: "))
+        while (posicion>9)or (posicion<1):
+            posicion=int(input("Has introducido una posición no válida:"))
         if (tabla[posicion-1]) and tabla[posicion-1]!=("\033[37mX\033[0m") and tabla[posicion-1]!=("\033[37mY\033[0m"):
             tabla[posicion-1]=(marcador)
             turno=False
