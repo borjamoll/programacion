@@ -115,7 +115,7 @@ def menu_ppt_1j():
         opciones_jugar()
         opciones_ppt_1j=int(input("Indica tu opción? "))
         print(iguales)
-        while opciones_ppt_1j>5:
+        while opciones_ppt_1j>5 or opciones_ppt_1j<1:
             opciones_ppt_1j=int(input("Opción no válida intentalo otra vez:"))
         comprueba_resultado(opciones_ppt_1j,aleatorio_ppt())
         jugadas-=1
@@ -150,12 +150,12 @@ def menu_ppt_2j():
         print("Puntuación del jugador 2: %i" %puntuacion_jugador2)
         opciones_jugar()
         opciones_ppt_1j=int(input("La opción de %s: "%(jugador1)))
-        while opciones_ppt_1j>5:
+        while opciones_ppt_1j>5 or opciones_ppt_1j<1:
             opciones_ppt_1j=int(input("Opción no válida prueba otra vez:"))
         limpiapantalla()
         opciones_jugar()
         opciones_ppt_2j=int(input("La opción de %s: "%(jugador2)))
-        while opciones_ppt_2j>5:
+        while opciones_ppt_2j>5 or opciones_ppt_2j<1:
             opciones_ppt_2j=int(input("Opción no válida prueba otra vez:"))
         limpiapantalla()
         comprueba_resultado(opciones_ppt_1j,opciones_ppt_2j)
